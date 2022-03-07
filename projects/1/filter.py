@@ -39,6 +39,7 @@ logging.info("ARGS {}".format(sys.argv[1:]))
 # If +field option is given, output the id (always first record) and the given field
 # if -field is given, output all but the given field
 #
+fields.remove('label')
 
 if len(sys.argv) == 1:
   #by default print all fields
