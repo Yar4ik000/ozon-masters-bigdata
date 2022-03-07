@@ -41,11 +41,9 @@ logging.info(f"TRAIN_PATH {train_path}")
 #fields = """doc_id,hotel_name,hotel_url,street,city,state,country,zip,class,price,
 #num_reviews,CLEANLINESS,ROOM,SERVICE,LOCATION,VALUE,COMFORT,overall_ratingsource""".replace("\n",'').split(",")
 
-drop_fields = [f'C{i}' for i in range(11, 27)]
-read_table_opts = dict(sep='\t', names=fields + drop_fields, index_col=False)
+read_table_opts = dict(sep='\t', names=fields, index_col=False)
 df = pd.read_table(train_path, **read_table_opts)
 
-df = df.drop(columns=drop_fields)
 
 #split train/test
 X_train, X_test, y_train, y_test = train_test_split(
