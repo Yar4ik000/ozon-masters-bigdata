@@ -8,6 +8,6 @@ def filter_cond(line_dict):
     if not line_dict['I1']:
         return False
     cond_match = (
-       int(line_dict["I1"]) > 20 and int(line_dict['I1']) < 40
+       int(line_dict["I1"]) > 20
     ) 
     return True if cond_match else False
