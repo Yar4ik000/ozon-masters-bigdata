@@ -5,8 +5,6 @@ def filter_cond(line_dict):
     Takes a dict with field names as argument
     Returns True if conditions are satisfied
     """
-    if not line_dict['I1']:
-        return False
     cond_match = (
        20 < int(line_dict["I1"]) < 40 
     ) 
