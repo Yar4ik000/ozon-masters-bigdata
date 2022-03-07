@@ -10,9 +10,9 @@ from sklearn.compose import ColumnTransformer
 
 
 numeric_features = ["I"+str(i) for i in range(1,14)]
-categorical_features = ["C"+str(i) for i in range(1, 11)] + ['day_number']
+categorical_features = ["C"+str(i) for i in range(1, 27)] + ['day_number']
 
-fields = ['id', "label"] + numeric_features + categorical_features
+fields = ['id', "label"] + numeric_features
 
 numeric_transformer = Pipeline(steps=[
     ('imputer', SimpleImputer(strategy='median')),
@@ -20,14 +20,12 @@ numeric_transformer = Pipeline(steps=[
 ])
 
 categorical_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
-    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+    ('imputer', SimpleImputer(strategy='constant', fill_value='missing'))
 ])
 
 preprocessor = ColumnTransformer(
     transformers=[
-        ('num', numeric_transformer, numeric_features),
-        ('cat', categorical_transformer, categorical_features)
+        ('num', numeric_transformer, numeric_features)
     ]
 )
 
