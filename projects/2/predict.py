@@ -11,18 +11,11 @@ from model import fields
 #load the model
 model = load("2.joblib")
 
-#fields = """doc_id,hotel_name,hotel_url,street,city,state,country,zip,class,price,
-#num_reviews,CLEANLINESS,ROOM,SERVICE,LOCATION,VALUE,COMFORT,overall_ratingsource""".replace("\n",'').split(",")
-
-#read and infere
-fields.remove('label')
-read_opts=dict(
-        sep='\t', names=fields, index_col=False, header=None,
-        iterator=True, chunksize=500
-)
-
-for df in pd.read_csv(sys.stdin, **read_opts):
-    df = df[(df['if1'] > 20) & (df['if1'] < 40)]
+for line in sys.stdin:
+    line = line.replace('\\N', 'nan')
+    (id, if1, if2, if3, if4, if5, if6, if7, if8, if9, if10, if11, if12, if13) = line.split('\t')
+    if if1 <= 20 or if1 >= 40:
+        continue
+    df = [[id, if1, if2, if3, if4, if5, if6, if7, if8, if9, if10, if11, if12, if13]]
     pred = model.predict(df)
-    out = zip(df.id, pred)
-    print("\n".join(["{0}\t{1}".format(*i) for i in out]))
+    print(f"{id}\t{pred[0]}"]))
