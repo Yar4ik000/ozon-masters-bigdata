@@ -10,10 +10,15 @@ from model import fields
 
 #load the model
 model = load("2.joblib")
+fields.remove('label')
 
-for line in sys.stdin:
-    line = line.replace('\\N', '')
-    (id, if1, if2, if3, if4, if5, if6, if7, if8, if9, if10, if11, if12, if13) = line.split('\t')
-    df = [[id, if1, if2, if3, if4, if5, if6, if7, if8, if9, if10, if11, if12, if13]]
+read_opts = dict(
+        sep='\t', names=fields, index_col=False, header=None,
+        iterator=True, chunksize=500
+)
+
+for df in pd.read_csv(sys.stdin, **read_opts):
+    df = df.replace({'\\N': None})
     pred = model.predict(df)
-    print(f"{id}\t{pred[0]}"]))
+    out = zip(df.id, pred)
+    print('\n'.join(["{0}\t{1}".format(*i) for i in out]))
