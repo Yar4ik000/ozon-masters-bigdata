@@ -12,8 +12,10 @@ from model import fields
 model = load("2.joblib")
 
 for line in sys.stdin:
-    line = line.replace('\\N', 'nan')
+    line = line.replace('\\N', '')
     (id, if1, if2, if3, if4, if5, if6, if7, if8, if9, if10, if11, if12, if13) = line.split('\t')
+    if if1 == '':
+        continue
     df = [[id, if1, if2, if3, if4, if5, if6, if7, if8, if9, if10, if11, if12, if13]]
     pred = model.predict(df)
     print(f"{id}\t{pred[0]}"]))
