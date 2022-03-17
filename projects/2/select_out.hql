@@ -1,4 +1,4 @@
-insert overwrite directory 'Yar4ik000_hiveout' 
+insert overwrite directory 'yar4ik000_hiveout' 
 	row format delimited 
 	fields terminated by '\t'
 	stored as textfile
