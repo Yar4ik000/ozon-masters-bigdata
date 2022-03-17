@@ -1,4 +1,4 @@
-add file /projects/2/predict.py;
+add file projects/2/predict.py;
 add file 2.joblib;
 insert into hw2_pred 
 select transform(*)
