@@ -67,9 +67,11 @@ import csv
 import subprocess
 
 
-subprocess.run(['hdfs', 'dfs', '-mkdir', sys.argv[4]])
+#subprocess.run(['hdfs', 'dfs', '-mkdir', sys.argv[4]])
 
-with open(sys.argv[4], 'w') as f:
-    writer = csv.writer(f)
-    writer.writerow(BFS(int(sys.argv[1]), int(sys.argv[2])))
+route = BFS(int(sys.argv[1]), int(sys.argv[2]))
+subprocess.run(['echo', route, '>', sys.argv[4]])
+#with open(sys.argv[4], 'w') as f:
+#    writer = csv.writer(f)
+#    writer.writerow(BFS(int(sys.argv[1]), int(sys.argv[2])))
 
