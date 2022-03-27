@@ -64,7 +64,10 @@ def BFS(start, end, max_depth=10):
     return route
 
 import csv
+import subprocess
 
+
+subprocess.run(['hdfs', 'dfs', '-mkdir', sys.argv[4]])
 
 with open(sys.argv[4], 'w') as f:
     writer = csv.writer(f)
