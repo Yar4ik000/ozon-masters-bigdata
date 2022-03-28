@@ -42,38 +42,29 @@ for user, follower in vertexs:
     graph[follower].append(user)
 
 
-def BFS(start, end, max_depth=10):
-    route = ''
-    opened = set()
+def BFS(start, end, max_depth=9):
+    routes = []
     queue = deque()
     min_ans = max_depth + 10
     queue.append([start, 0, str(start)])
-    opened.add(start)
     while queue:
         elem = queue.popleft()
         if elem[0] == end:
             if elem[1] < min_ans:
-                route = elem[2]
+                routes = [elem[2]]
                 min_ans = elem[1]
+            elif elem[1] == min_ans:
+                rotes.append(elem[2])
             continue
         neighbours = graph[elem[0]]
         for neigh in neighbours:
-            if neigh not in opened and elem[1] + 1 < max_depth:
+            if elem[1] + 1 < max_depth:
                 queue.append([neigh, elem[1] + 1, elem[2] + ',' + str(neigh)])
-                opened.add(neigh)
-    return route
-
-import csv
-import subprocess
+    return routes
 
 
-#subprocess.run(['hdfs', 'dfs', '-mkdir', sys.argv[4]])
+routes = BFS(int(sys.argv[1]), int(sys.argv[2]))
 
-#route = BFS(int(sys.argv[1]), int(sys.argv[2]))
 
-#subprocess.run(['echo', route, '>', sys.argv[4]])
-with open(sys.argv[4], 'w') as f:
-    writer = csv.writer(f)
-    writer.writerow(BFS(int(sys.argv[1]), int(sys.argv[2])))
-
-subprocess.run(['hdfs', 'dfs', '-copyFromLocal', sys.argv[4], sys.argv[4]])
+df = spark.createDataFrame(data=routes)
+df.write.csv(sys.argv[4], mode="overwrite")
