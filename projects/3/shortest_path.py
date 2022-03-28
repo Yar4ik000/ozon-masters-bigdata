@@ -42,7 +42,7 @@ for user, follower in vertexs:
     graph[follower].append(user)
 
 
-def BFS(start, end, max_depth=9):
+def BFS(start, end, max_depth=4):
     routes = []
     queue = deque()
     min_ans = max_depth + 10
@@ -51,10 +51,10 @@ def BFS(start, end, max_depth=9):
         elem = queue.popleft()
         if elem[0] == end:
             if elem[1] < min_ans:
-                routes = [elem[2]]
+                routes = [[elem[2]]]
                 min_ans = elem[1]
             elif elem[1] == min_ans:
-                routes.append(elem[2])
+                routes.append([elem[2]])
             continue
         neighbours = graph[elem[0]]
         for neigh in neighbours:
