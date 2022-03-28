@@ -54,7 +54,7 @@ def BFS(start, end, max_depth=9):
                 routes = [elem[2]]
                 min_ans = elem[1]
             elif elem[1] == min_ans:
-                rotes.append(elem[2])
+                routes.append(elem[2])
             continue
         neighbours = graph[elem[0]]
         for neigh in neighbours:
