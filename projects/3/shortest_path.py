@@ -64,7 +64,10 @@ def BFS(start, end, max_depth=4):
 
 
 routes = BFS(int(sys.argv[1]), int(sys.argv[2]))
+anses = []
+for route in routes:
+    ans = list(map(int, route.split(',')))
+    anses.append(ans)
 
-
-df = spark.createDataFrame(data=routes)
+df = spark.createDataFrame(data=anses)
 df.write.csv(sys.argv[4], mode="overwrite")
