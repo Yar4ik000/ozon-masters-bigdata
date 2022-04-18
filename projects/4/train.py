@@ -3,6 +3,7 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 spark.sparkContext.setLogLevel('WARN')
 
+from pyspark.sql.types import *
 from model import pipeline
 import sys
 
