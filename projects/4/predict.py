@@ -5,6 +5,8 @@ spark.sparkContext.setLogLevel('WARN')
 
 from pyspark.ml import Pipeline, PipelineModel
 import sys
+from pyspark.ml.feature import *
+from pyspark.sql.types import *
 
 model = PipelineModel.load(sys.argv[1])
 
