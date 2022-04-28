@@ -1,0 +1,8 @@
+name: conda-env
+
+dependencies:
+    - python=3.7.13
+    - numpy
+    - pandas
+    - mlflow=1.25.1
+    - sklearn
