@@ -6,6 +6,6 @@ entry_points:
     main:
         parameters:
             train_path: train_path
-            C: {type: float, default: 1.0}
-        command: "python train.py {train_path} {C}"
+            model_param1: {type: float, default: 1.0}
+        command: "python train.py -r {train_path} {model_param1}"
 
