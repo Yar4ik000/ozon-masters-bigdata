@@ -3,8 +3,6 @@
 import os, sys
 import logging
 import mlflow
-import mlflow.sklearn
-
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.linear_model import LogisticRegression
