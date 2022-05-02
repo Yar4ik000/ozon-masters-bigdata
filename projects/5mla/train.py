@@ -70,7 +70,7 @@ prob_preds = model.predict_proba(X_train)[:, 1]
 loss = log_loss(y_train, prob_preds)
 
 mlflow.log_metric('log_loss', loss)
-mlflow.log_param('model_param1', float(sys.argv[3])
+mlflow.log_param('model_param1', float(sys.argv[3]))
 mlflow.sklearn.log_model(model, artifact_path='model')
 #with mlflow.start_run(run_name="Homework"):
 #    model.fit(df.drop(columns='label'), df['label'])
