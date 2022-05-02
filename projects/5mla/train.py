@@ -16,8 +16,8 @@ from joblib import dump
 
 #def main():
 print(sys.argv[1], sys.argv[2])
-numeric_features = ["I"+str(i) for i in range(1,14)]
-categorical_features = ["C"+str(i) for i in range(1, 27)] + ['day_number']
+numeric_features = ["if"+str(i) for i in range(1,14)]
+categorical_features = ["cf"+str(i) for i in range(1, 27)] + ['day_number']
 
 fields = ['id', "label"] + numeric_features
 
