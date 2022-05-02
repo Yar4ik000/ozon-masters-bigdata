@@ -11,6 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
+from sklearn.metrics import log_loss
 
 import pandas as pd
 from joblib import dump
@@ -60,10 +61,22 @@ model = Pipeline(steps=[
 read_table_opts = dict(sep='\t', names=fields, index_col=False)
 df = pd.read_table(sys.argv[2], **read_table_opts)
 
+#X_train, X_test, y_train, y_test = train_test_split(
+#        df.drop(columns='label'), df['label'], test_size=0.33, random_state=42)
+X_train = df.drop(columns='label')
+y_train = df['label']
 
-with mlflow.start_run(run_name="Homework"):
-    model.fit(df.drop(columns='label'), df['label'])
-    mlflow.sklearn.log_model(model, "model")
+model.fit(X_train, y_train)
+prob_preds = model.predict_proba(X_train)[:, 1]
+
+loss = log_loss(y_train, prob_preds)
+
+mlflow.log_metric('log_loss', loss)
+mlflow.log_param('model_param1', float(sys.argv[3])
+mlflow.sklearn.log_model(model, artifact_path='model')
+#with mlflow.start_run(run_name="Homework"):
+#    model.fit(df.drop(columns='label'), df['label'])
+#    mlflow.sklearn.log_model(model, "model")
 
 #if __name__ == '__main__':
 #    main()
