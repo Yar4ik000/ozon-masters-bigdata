@@ -53,7 +53,7 @@ with DAG(
             task_id='predict_task',
             env_vars={'PYSPARK_PYTHON': dsenv},
             application=f'{base_dir}/predict.py',
-            application_args=[test, prediction, f'{base_dir}/6.joblib'],
+            application_args=[test_out, prediction, f'{base_dir}/6.joblib'],
             spark_binary='/usr/bin/spark-submit')
 
     feature_eng_task_train >> feature_eng_task_test >> train_download_task >> train_task >> model_sensor >> predict_task
