@@ -39,9 +39,9 @@ schema = StructType([
     StructField("vote", StringType())
 ])
 
-df = spark.read.parquet(sys.argv[2], schema=schema)
+df = spark.read.parquet(sys.argv[1], schema=schema)
 
-model = joblib.load(sys.argv[6])
+model = joblib.load(sys.argv[3])
 logreg = spark.sparkContext.broadcast(model)
 
 @F.pandas_udf(IntegerType())
@@ -51,6 +51,6 @@ def predict(*columns):
 
 preds = df.withColumn('prediction', predict('verified', 'vote'))
 
-preds.select('id', 'prediction').write.overwrite().save(sys.argv[4], header='false', format='csv')
+preds.select('id', 'prediction').write.overwrite().save(sys.argv[2], header='false', format='csv')
 
 spark.stop()
