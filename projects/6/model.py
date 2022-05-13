@@ -11,10 +11,10 @@ from sklearn.linear_model import LogisticRegression
 
 columns = ['id', 'label', 'verified', 'vote']
 
-df = pd.read_parquet(sys.argv[2], columns=columns)
+df = pd.read_parquet(sys.argv[1], columns=columns)
 df = df.fillna(0)
 
 logreg = LogisticRegression()
 logreg.fit(df[['verified', 'vote']], df['label'])
 
-joblib.dump(logreg, sys.argv[4])
+joblib.dump(logreg, sys.argv[2])
