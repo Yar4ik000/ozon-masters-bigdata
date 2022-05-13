@@ -34,12 +34,12 @@ schema = StructType([
     StructField("vote", IntegerType())
 ])
 
-df = spark.read.json(sys.argv[2], schema=schema)
+df = spark.read.json(sys.argv[1], schema=schema)
 imputer = Imputer(strategy='median', inputCol='vote', outputCol='vote')
 
 model = imputer.fit(df)
 
 df = model.transform(df)
-df.write().overwrite().parquet(sys.argv[4])
+df.write().overwrite().parquet(sys.argv[2])
 
 spark.stop()
