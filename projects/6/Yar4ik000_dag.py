@@ -22,6 +22,7 @@ with DAG(
         ) as dag:
     feature_eng_task_train = SparkSubmitOperator(
             task_id='train_engineering',
+            dag=dag,
             env_vars={'PYSPARK_PYTHON': dsenv},
             application=f'{base_dir}/engineering.py',
             application_args=[train, train_out],
@@ -29,6 +30,7 @@ with DAG(
     
     feature_eng_task_test = SparkSubmitOperator(
             task_id='test_engineering',
+            dag=dag,
             env_vars={'PYSPARK_PYTHON': dsenv},
             application=f'{base_dir}/engineering.py',
             application_args=[test, test_out],
@@ -37,20 +39,24 @@ with DAG(
     train_download_command = f'hdfs dfs -get {train_out} {base_dir}/Yar4ik000_train_out_local.parquet'
     train_download_task = BashOperator(
             task_id='train_download',
+            dag=dag,
             bash_command=train_download_command)
 
     train_task_command = f'{dsenv} {base_dir}/model.py {base_dir}/Yar4ik000_train_out_local.parquet {base_dir}/6.joblib' 
 
     train_task = BashOperator(
             task_id='train_task',
+            dag=dag,
             bash_command=train_task_command)
 
     model_sensor = FileSensor(
             task_id='model_sensor',
+            dag=dag,
             filepath=f'{base_dir}/6.joblib')
 
     predict_task = SparkSubmitOperator(
             task_id='predict_task',
+            dag=dag,
             env_vars={'PYSPARK_PYTHON': dsenv},
             application=f'{base_dir}/predict.py',
             application_args=[test_out, prediction, f'{base_dir}/6.joblib'],
