@@ -31,10 +31,11 @@ schema = StructType([
     StructField("id", StringType()),
     StructField("label", FloatType()),
     StructField("verified", BooleanType()),
-    StructField("vote", IntegerType())
+    StructField("vote", StringType())
 ])
 
 df = spark.read.json(sys.argv[1], schema=schema)
+df = df.withColumn("vote", col("vote").cast(IntegerType))
 imputer = Imputer(strategy='median', inputCol='vote', outputCol='vote')
 
 model = imputer.fit(df)
