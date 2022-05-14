@@ -36,7 +36,7 @@ import numpy as np
 schema = StructType([
     StructField("id", StringType()),
     StructField("verified", BooleanType()),
-    StructField("vote", StringType())
+    StructField("vote", IntegerType())
 ])
 
 df = spark.read.parquet(sys.argv[1], schema=schema)
