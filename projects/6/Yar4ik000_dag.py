@@ -49,10 +49,10 @@ with DAG(
             dag=dag,
             bash_command=train_task_command)
 
-    model_sensor = FileSensor(
-            task_id='model_sensor',
-            dag=dag,
-            filepath=f'{base_dir}/6.joblib')
+    #model_sensor = FileSensor(
+    #        task_id='model_sensor',
+    #        dag=dag,
+    #        filepath=f'{base_dir}/6.joblib')
 
     predict_task = SparkSubmitOperator(
             task_id='predict_task',
@@ -62,5 +62,5 @@ with DAG(
             application_args=[test_out, prediction, f'{base_dir}/6.joblib'],
             spark_binary='/usr/bin/spark-submit')
 
-    feature_eng_task_train >> feature_eng_task_test >> train_download_task >> train_task >> model_sensor >> predict_task
+    feature_eng_task_train >> feature_eng_task_test >> train_download_task >> train_task >> predict_task #model_sensor >> predict_task
 
