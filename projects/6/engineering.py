@@ -25,7 +25,7 @@ from pyspark.sql.types import *
 from pyspark.ml import Estimator, Transformer
 from pyspark.ml.feature import *
 from pyspark.ml import Pipeline
-from pyspark.sql.types import *
+import pyspark.sql.functions.col
 
 schema = StructType([
     StructField("id", StringType()),
