@@ -18,7 +18,7 @@ with DAG(
         'Yar4ik000_dag',
         catchup=False,
         schedule_interval=None,
-        start_date=datetime(2022, 5, 18)
+        start_date=datetime(2022, 5, 19)
         ) as dag:
     feature_eng_task_train = SparkSubmitOperator(
             task_id='train_engineering',
