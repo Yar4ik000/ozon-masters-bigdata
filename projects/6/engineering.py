@@ -41,6 +41,6 @@ imputer = Imputer(strategy='median', inputCol='vote', outputCol='vote')
 model = imputer.fit(df)
 
 df = model.transform(df)
-df.write.overwrite().parquet(sys.argv[2])
+df.write.mode('overwrite').parquet(sys.argv[2])
 
 spark.stop()
