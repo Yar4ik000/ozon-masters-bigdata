@@ -35,7 +35,7 @@ schema = StructType([
 ])
 
 df = spark.read.json(sys.argv[1], schema=schema)
-df = df.withColumn("vote", col("vote").cast(IntegerType))
+df = df.withColumn("vote", col("vote").cast(IntegerType()))
 imputer = Imputer(strategy='median', inputCol='vote', outputCol='vote')
 
 model = imputer.fit(df)
