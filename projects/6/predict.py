@@ -51,6 +51,6 @@ def predict(*columns):
 
 preds = df.withColumn('prediction', predict('verified', 'vote'))
 
-preds.select('id', 'prediction').write.overwrite().save(sys.argv[2], header='false', format='csv')
+preds.select('id', 'prediction').write.mode('overwrite').save(sys.argv[2], header='false', format='csv')
 
 spark.stop()
