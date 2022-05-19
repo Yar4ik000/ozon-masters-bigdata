@@ -11,7 +11,7 @@ train = '/datasets/amazon/all_reviews_5_core_train_extra_small_sentiment.json'
 train_out = 'user/Yar4ik000/Yar4ik000_train_out.parquet'
 test = '/datasets/amazon/all_reviews_5_core_test_extra_small_features.json'
 test_out = 'user/Yar4ik000/Yar4ik000_test_out.parquet'
-prediction = 'Yar4ik000_hw6_prediction'
+prediction = 'user/Yar4ik000/Yar4ik000_hw6_prediction'
 
 
 with DAG(
